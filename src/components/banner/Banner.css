@@ -1,14 +1,12 @@
 .banner {
-	height: 500px;
+	padding: 15rem;
+	height: 60vh;
 	position: relative;
 	color: white;
-	object-fit: contain;
+	background-size: cover;
+	background-position: center center;
 }
-.banner_contents {
-	margin-left: 30px;
-	padding-top: 140px;
-	height: 200px;
-}
+
 .banner_title {
 	font-size: 3rem;
 	font-weight: 800;

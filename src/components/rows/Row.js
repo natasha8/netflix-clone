@@ -1,9 +1,15 @@
 import React, { useEffect, useState } from "react";
 import "./Row.css";
 import axios from "../../axios";
+
 function Row({ title, fetchUrl, isLargeRow = false }) {
 	const [movies, setMovies] = useState([]);
 	const base_url = "https://image.tmdb.org/t/p/original/";
+
+	const [isOpen, setIsOpen] = useState(false);
+	const openModal = () => {
+		setIsOpen(true);
+	};
 
 	useEffect(() => {
 		async function fetchData() {
@@ -33,6 +39,7 @@ function Row({ title, fetchUrl, isLargeRow = false }) {
 										: movie.backdrop_path
 								}`}
 								alt={movie.name}
+								onClick={openModal}
 							/>
 						)
 					);

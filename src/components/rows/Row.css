@@ -11,7 +11,7 @@
 	display: none;
 }
 .row_poster {
-	max-height: 10rem;
+	max-height: 15rem;
 	object-fit: contain;
 	margin: 10px;
 	width: 100%;
