@@ -11,13 +11,15 @@
 	width: 10rem;
 	padding: 10px 20px;
 }
-.loginScreen_button {
+.loginScreen_log_button {
 	position: fixed;
 	right: 20px;
 	top: 20px;
+	border-radius: 0.3rem;
 	padding: 10px 20px;
 	background-color: red;
 	color: white;
+	cursor: pointer;
 }
 .loginScreen_gradient {
 	width: 100%;
@@ -41,6 +43,8 @@
 	color: white;
 	text-align: center;
 	padding: 20px;
+	left: 0;
+	right: 0;
 }
 .loginScreen_body > h1 {
 	font-size: 3rem;
@@ -53,30 +57,35 @@
 }
 .loginScreen_body > h3 {
 	font-size: 1rem;
-	margin-bottom: 20px;
 	font-weight: 100;
 }
-.loginScreen_email > form > input {
+.loginScreen_form {
+	margin: 1rem;
+}
+
+.loginScreen_form > form > input {
 	padding: 10px;
 	outline-width: 0;
 	height: 30px;
-	width: 30%;
+	width: 25%;
 	max-width: 600px;
 	border: none;
 }
-.loginScreen_email > form > button {
-	padding: 10px;
-	outline-width: 0;
-	height: 30px;
-	width: 10%;
-	background-color: red;
-	border: none;
-}
-.loginScreen_start {
-	height: 30px;
-	padding: 10px;
-	font-size: 1rem;
-	background-color: red;
+button.loginScreen_starter {
 	color: white;
+	height: 30px;
+	background-color: red;
 	border: none;
+	outline-width: 0;
+	min-width: 12%;
+	cursor: pointer;
+	font-weight: bold;
+}
+@media only screen and (max-width: 800px) {
+	.loginScreen_form > form > input {
+		min-width: 50%;
+	}
+	.loginScreen_body {
+		top: 20%;
+	}
 }
