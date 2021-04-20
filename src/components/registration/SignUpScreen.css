@@ -25,6 +25,7 @@
 	padding: 16px 20px;
 	cursor: pointer;
 	margin-top: 1rem;
+	outline-width: 0;
 }
 .signup > form > h1 {
 	margin-bottom: 1rem;
