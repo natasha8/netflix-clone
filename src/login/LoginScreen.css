@@ -36,7 +36,7 @@
 .loginScreen_body {
 	width: 100%;
 	position: absolute;
-	top: 30%;
+	top: 20%;
 	margin-left: auto;
 	margin-right: auto;
 	z-index: 1;
@@ -84,8 +84,5 @@ button.loginScreen_starter {
 @media only screen and (max-width: 800px) {
 	.loginScreen_form > form > input {
 		min-width: 50%;
-	}
-	.loginScreen_body {
-		top: 20%;
 	}
 }
