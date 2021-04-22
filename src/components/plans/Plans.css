@@ -17,3 +17,7 @@
 	border-radius: 0.3rem;
 	cursor: pointer;
 }
+.plan--disabled > button {
+	background-color: grey !important;
+	opacity: 1;
+}

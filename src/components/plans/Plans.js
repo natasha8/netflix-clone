@@ -8,32 +8,55 @@ import "./Plans.css";
 function Plans() {
 	const [plans, setPlans] = useState([]);
 	const user = useSelector(selectUser);
+	const [subscription, setSubscription] = useState(null);
 
 	const showPlans = () => {
 		db.collection("plans")
 			.where("active", "==", true)
 			.get()
 			.then((querySnapshot) => {
-				const info = {};
+				const plans = {};
 				querySnapshot.forEach(async (productDoc) => {
-					info[productDoc.id] = productDoc.data();
+					plans[productDoc.id] = productDoc.data();
 					const priceSnap = await productDoc.ref
-						.collection("price")
+						.collection("prices")
 						.get();
 					priceSnap.docs.forEach((price) => {
-						info[productDoc.id].prices = {
+						plans[productDoc.id].prices = {
 							priceId: price.id,
 							priceData: price.data(),
 						};
 					});
 				});
-				setPlans(info);
+				setPlans(plans);
+				console.log("plans:", plans);
 			});
 	};
-	console.log(plans);
 	useEffect(() => {
 		showPlans();
 	}, []);
+
+	useEffect(() => {
+		db.collection("customers")
+			.doc(user.uid)
+			.collection("subscriptions")
+			.get()
+			.then((querySnapshot) => {
+				querySnapshot.forEach(async (subscription) => {
+					setSubscription({
+						role: subscription.data().role,
+						current_period_end: subscription.data()
+							.current_period_end.seconds,
+						current_period_start: subscription.data()
+							.current_period_start,
+					});
+				});
+			})
+			.catch((error) => {
+				console.error(error);
+			});
+	}, [user.uid]);
+	console.log("SUBSCRIPTION", subscription);
 
 	const loadCheckout = async (priceId) => {
 		const docRef = await db
@@ -48,7 +71,7 @@ function Plans() {
 		docRef.onSnapshot(async (snap) => {
 			const { error, sessionId } = snap.data();
 			if (error) {
-				alert(`${error.message}`);
+				alert(`ERROR:${error.message}`);
 			}
 			if (sessionId) {
 				const stripe = await loadStripe(
@@ -60,20 +83,35 @@ function Plans() {
 	};
 
 	return (
-		<div className="info">
+		<div className="plans">
+			{subscription && (
+				<p>
+					Renewal date :{" "}
+					{new Date(
+						subscription?.current_period_end * 1000
+					).toLocaleDateString()}
+				</p>
+			)}
 			{Object.entries(plans).map(([productId, productData]) => {
+				const isCurrentPlan = productData.name
+					?.toLowerCase()
+					.includes(subscription?.role);
 				return (
-					<div className="plan" key={productId}>
+					<div
+						key={productId}
+						className={`${isCurrentPlan && "plan--disabled"} plan`}
+					>
 						<div className="plan_info">
 							<h5>{productData.name}</h5>
 							<h6>{productData.description}</h6>
 						</div>
 						<button
 							onClick={() =>
-								loadCheckout(productData.prices.price)
+								!isCurrentPlan &&
+								loadCheckout(productData.prices.priceId)
 							}
 						>
-							Subscribe
+							{isCurrentPlan ? "Current Plan" : "Subscribe"}
 						</button>
 					</div>
 				);
