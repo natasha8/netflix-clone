@@ -21,3 +21,13 @@
 	background-color: grey !important;
 	opacity: 1;
 }
+@media only screen and (max-width: 900px) {
+	.plan {
+		padding: 0.6rem;
+		flex-direction: column;
+	}
+
+	.plan > button {
+		width: 100%;
+	}
+}

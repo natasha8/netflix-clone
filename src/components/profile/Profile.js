@@ -24,15 +24,15 @@ function Profile() {
 						<div className="profile_plans">
 							<h3>Plans</h3>
 							<Plans />
-							<button
-								onClick={() => auth.signOut()}
-								className="profile_logout"
-							>
-								Sign Out
-							</button>
 						</div>
 					</div>
 				</div>
+				<button
+					onClick={() => auth.signOut()}
+					className="profile_logout"
+				>
+					Sign Out
+				</button>
 			</div>
 		</div>
 	);
