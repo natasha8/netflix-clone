@@ -42,6 +42,7 @@
 	background-color: red;
 	cursor: pointer;
 	border: none;
+	border-radius: 0.3rem;
 }
 .profile_plans {
 	margin-top: 20px;
